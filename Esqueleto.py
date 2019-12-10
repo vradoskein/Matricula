@@ -4,7 +4,7 @@ from Materia import Materia
 #Arquivo para ser importado
 
 
-filename = "jogos.txt"
+filename = "test.txt"
 
 #Inicializa lita com todas materias
 allmat = Materia.allmat(filename)
@@ -18,10 +18,8 @@ var = dict()
 linhacheck = 1
 columncheck =1
 
-#printando as materias done por enquanto
+#Verifica quais materias estao able e mostra elas na tela
 def ablemat(linha, coluna):
-    for x in allmat:
-        x.isable(allmat)
     for x in allmat:
         if x.able and not x.done:
             var[x]=IntVar()
@@ -41,6 +39,7 @@ def Lecheck(event):
 
 #Montando grid de check boxes
 for x in allmat:
+    print(x.name,x.reqs, x.peso)
     var[x]=IntVar()
     check1 = Checkbutton(tentativa, text = x.name,  variable=var[x])
     check1.grid(row=linhacheck, column=columncheck, sticky=W)
