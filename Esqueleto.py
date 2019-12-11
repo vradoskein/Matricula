@@ -1,11 +1,11 @@
 from tkinter import *
-from Materia import Materia
+from Materia import *
 
 #Arquivo para ser importado
 filename = "test.txt"
 
 #Inicializa lita com todas materias
-allmat = Materia.allmat(filename)
+all = Materia.allmat(filename)
 
 #Criando Interface Grafica
 tentativa = Tk()
@@ -14,15 +14,21 @@ tentativa.title("Auxilio em matricula")
 var = dict()
 
 #variaveis criadas para auxiliar
-linhacheck = 1
-columncheck =1
+linhacheck  = 1
+columncheck = 1
 
 #criar grade com o maior numero de materias
+#N tava rolando deixar o metodo sem parametros. Resolver
 def Maxmat(event):
+    Materia.ablelist()
+    Materia.montarGrafo()
     pass
 
 #criar grade com o numero N de materias
+#N tava rolando deixar o metodo sem parametros. Resolver
 def onButtonClick():
+    grafo = Materia.ablelist()
+    print(grafo)
     pass
 
 
@@ -47,8 +53,9 @@ def createoptions():
 
 
 #Verifica quais materias estao able e mostra elas na tela
+#Considerando cores para as materias mais importantes
 def ablemat(linha, coluna):
-    for x in allmat:
+    for x in all:
         x.isable()
         if x.able and not x.done:
             var[x]=IntVar()
@@ -70,13 +77,13 @@ def ablemat(linha, coluna):
 
 #seta pra done as materias ja feitas
 def Lecheck(event):
-    for x in allmat:
+    for x in all:
         if (var[x].get()):
             x.setDone()
     ablemat(10,1)
 
 #Montando grid de check boxes
-for x in allmat:
+for x in all:
     var[x]=IntVar()
     check1 = Checkbutton(tentativa, text = x.name,  variable=var[x])
     check1.grid(row=linhacheck, column=columncheck, sticky=W)

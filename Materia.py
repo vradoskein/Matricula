@@ -1,5 +1,6 @@
 class Materia:
     matlist =[]
+    ablesmat = []
 
     #Estrutura de materias e construtor
     def __init__(self, name, reqs, horario):
@@ -58,3 +59,32 @@ class Materia:
             mat.pesos()
 
         return Materia.matlist
+
+    #Monta lista com as materia aptas
+    @classmethod
+    def ablelist(cls):
+        #Organiando para a materia mais "importante" seja o primeiro vertice
+        #Para q ela tenha a cor 0
+        for mat in Materia.matlist:
+            if mat.able and not mat in Materia.ablesmat:
+                Materia.ablesmat.append(mat)
+            elif mat.able and not mat in Materia.ablesmat and mat.pesos > Materia.ablesmat[1]:
+                Materia.ablesmat.insert(0, mat)
+
+    #Monta a Matriz para resolver a coloracao
+    @classmethod
+    def montarMatriz(cls):
+        Materia.ablelist()
+        pass
+
+    #Chama o metodo para construir o grafo
+    #e tambem resolver a coloracao
+    @classmethod
+    def montarGrafo(cls):
+        Materia.montarMatriz()
+        for m in Materia.ablesmat:
+            print(m.name, m.peso)
+        print(len(Materia.ablesmat))
+        pass
+
+
