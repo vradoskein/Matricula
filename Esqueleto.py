@@ -17,20 +17,36 @@ var = dict()
 linhacheck  = 1
 columncheck = 1
 
+#Cria grade priorizando as materias com maior peso
+def prior():
+    gradelist = Materia.prior()
+    criagrade(gradelist, 19, 1)
+    pass
+
 #criar grade com o maior numero de materias
-#N tava rolando deixar o metodo sem parametros. Resolver
-def Maxmat(event):
+#Coloracao eh NP completo, entao vamo ver como vai ser...
+def maxmat():
     Materia.ablelist()
-    Materia.montarGrafo()
+    gradelist = Materia.montarGrafo()
+    criagrade(gradelist, 19, 1)
     pass
 
 #criar grade com o numero N de materias
 #N tava rolando deixar o metodo sem parametros. Resolver
-def onButtonClick():
-    grafo = Materia.ablelist()
-    print(grafo)
+def limited():
     pass
 
+#Cria a grade de acordo com a lista recebida
+def criagrade(gradelist, linha, coluna):
+    for g in gradelist:
+        var[x] = IntVar()
+        check2 = Button(tentativa, text=g.name, background='green', command=var[x])
+        check2.grid(row=linha, column=coluna, sticky=W)
+
+        linha += 1
+        if linha == 25:
+            coluna += 1
+            linha = 19
 
 #Cria opcoes para a pessoa escolher como montar a grade
 #N SEI PQ Q N TA DANDO PRA PEGAR
@@ -39,17 +55,19 @@ def createoptions():
     grades = Label(tentativa, text='Selecione estilo:')
     grades.grid(row=17, column=1)
 
-    max = Button(tentativa, text="Grade com mais materias", background = 'orange')
-    max.bind("<Button-1>", Maxmat)
+    max = Button(tentativa, text="Grade Priorizando mas Importantes", background='orange', command=prior)
     max.grid(row=18, column=1)
 
-    max = Button(tentativa, text="Grade com N materias", background='orange', command=onButtonClick)
+    max = Button(tentativa, text="Grade com mais materias", background = 'orange', command=maxmat)
     max.grid(row=18, column=2)
+
+    max = Button(tentativa, text="Grade com N materias", background='orange', command=limited)
+    max.grid(row=18, column=3)
 
     global vai
     vai = IntVar()
     en = Entry(tentativa, textvariable=vai)
-    en.grid(row=18, column=3)
+    en.grid(row=18, column=4)
 
 
 #Verifica quais materias estao able e mostra elas na tela

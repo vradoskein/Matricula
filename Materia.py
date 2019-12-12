@@ -1,3 +1,8 @@
+import numpy as np
+
+from Graph import Graph
+
+
 class Materia:
     matlist =[]
     ablesmat = []
@@ -66,25 +71,90 @@ class Materia:
         #Organiando para a materia mais "importante" seja o primeiro vertice
         #Para q ela tenha a cor 0
         for mat in Materia.matlist:
-            if mat.able and not mat in Materia.ablesmat:
+            if mat.able and not mat in Materia.ablesmat and not mat.done:
                 Materia.ablesmat.append(mat)
-            elif mat.able and not mat in Materia.ablesmat and mat.pesos > Materia.ablesmat[1]:
-                Materia.ablesmat.insert(0, mat)
+            elif mat.able and not mat in Materia.ablesmat and not mat.done:
+                if Materia.ablesmat:
+                    Materia.ablesmat.insert(0, mat)
+                else:
+                    Materia.ablesmat.append(mat)
 
-    #Monta a Matriz para resolver a coloracao
+    @classmethod
+    def prior(cls):
+        Materia.ablelist()
+        priorlist = Materia.ablesmat
+        priorlist.sort(key=lambda x: x.peso, reverse=True)
+
+        copylist = []
+
+        copylist.append(priorlist[0])
+
+        return copylist
+
+    @classmethod
+    def intersection(cls, lst1, lst2):
+        lst3 = [value for value in lst1 if value in lst2]
+        return lst3
+
+        #Monta a Matriz para resolver a coloracao
+
     @classmethod
     def montarMatriz(cls):
         Materia.ablelist()
-        pass
+        tam = len(Materia.ablesmat)
+        matriz = np.zeros((tam, tam))
+        ext, int = 0, 0
+        for x, matext in enumerate(Materia.ablesmat):
+            for y, matint in enumerate(Materia.ablesmat):
+                if Materia.intersection(matext.horario, matint.horario):
+                    matriz[x][y] = 1
+        return matriz
 
     #Chama o metodo para construir o grafo
     #e tambem resolver a coloracao
+    #m = 5 so para ter um controle, indica o numero maximo
+    #de horarios que uma materia pode ter.
     @classmethod
     def montarGrafo(cls):
-        Materia.montarMatriz()
-        for m in Materia.ablesmat:
-            print(m.name, m.peso)
-        print(len(Materia.ablesmat))
-        pass
+        matriz = Materia.montarMatriz()
+
+        g = Graph(len(matriz[1]))
+        g.graph = matriz
+        m = 5
+        teste = g.graphColouring(m)
 
 
+        #Melhorar com ctz
+        list1 = []
+        list2 = []
+        list3 = []
+        list4 = []
+        list5 = []
+        for i, mat in enumerate(Materia.ablesmat):
+            if teste[i] == 1:
+                list1.append(mat)
+            elif teste[i] == 2:
+                list2.append(mat)
+            elif teste[i] == 3:
+                list3.append(mat)
+            elif teste[i] == 4:
+                list4.append(mat)
+            elif teste[i] == 5:
+                list5.append(mat)
+
+
+        tamanhos = [len(list1), len(list2), len(list3), len(list4), len(list5)]
+
+        t_max = max(tamanhos)
+        t_pos = tamanhos.index(t_max)
+
+        if t_pos == 0:
+            return list1
+        elif t_pos == 1:
+            return list2
+        elif t_pos == 2:
+            return list3
+        elif t_pos == 3:
+            return list4
+        elif t_pos == 4:
+            return list5

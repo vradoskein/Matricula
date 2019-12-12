@@ -29,19 +29,7 @@ class Graph():
         if self.graphColourUtil(m, colour, 0) == None:
             return False
 
-        # Print the solution
-        print
-        "Solution exist and Following are the assigned colours:"
-        for c in colour:
-            print
-            c,
-        return True
 
-
-# Driver Code
-g = Graph(4)
-g.graph = [[0, 1, 1, 1], [1, 0, 1, 0], [1, 1, 0, 1], [1, 0, 1, 0]]
-m = 3
-g.graphColouring(m)
+        return colour
 
 # This code is contributed by Divyanshu Mehta
