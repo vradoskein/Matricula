@@ -21,7 +21,6 @@ columncheck = 1
 def prior():
     gradelist = Materia.prior()
     criagrade(gradelist, 19, 1)
-    pass
 
 #criar grade com o maior numero de materias
 #Coloracao eh NP completo, entao vamo ver como vai ser...
@@ -29,12 +28,12 @@ def maxmat():
     Materia.ablelist()
     gradelist = Materia.montarGrafo()
     criagrade(gradelist, 19, 1)
-    pass
 
 #criar grade com o numero N de materias
 #N tava rolando deixar o metodo sem parametros. Resolver
 def limited():
-    pass
+    gradelist = Materia.limited(vai.get())
+    criagrade(gradelist, 19, 1)
 
 #Cria a grade de acordo com a lista recebida
 def criagrade(gradelist, linha, coluna):

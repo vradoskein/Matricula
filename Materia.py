@@ -88,6 +88,38 @@ class Materia:
         copylist = []
 
         copylist.append(priorlist[0])
+        for x in priorlist:
+            crt = True
+            for y in copylist:
+                if Materia.intersection(x.horario, y.horario):
+                    crt = False
+                    break
+                else:
+                    pass
+            if crt:
+               copylist.append(x)
+
+        return copylist
+
+    @classmethod
+    def limited(cls, num):
+        Materia.ablelist()
+        priorlist = Materia.ablesmat
+        priorlist.sort(key=lambda x: x.peso, reverse=True)
+
+        copylist = []
+
+        copylist.append(priorlist[0])
+        for x in priorlist:
+            crt = True
+            for y in copylist:
+                if Materia.intersection(x.horario, y.horario):
+                    crt = False
+                    break
+                else:
+                    pass
+            if crt and len(copylist) < num:
+               copylist.append(x)
 
         return copylist
 
