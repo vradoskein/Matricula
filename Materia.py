@@ -96,8 +96,10 @@ class Materia:
                     break
                 else:
                     pass
-            if crt:
-               copylist.append(x)
+            if crt and x.peso > 0:
+               copylist.insert(0, x)
+            elif crt:
+                copylist.append(x)
 
         return copylist
 
@@ -118,8 +120,10 @@ class Materia:
                     break
                 else:
                     pass
-            if crt and len(copylist) < num:
-               copylist.append(x)
+            if crt and len(copylist) < num and x.peso > 1:
+               copylist.insert(0, x)
+            elif crt and len(copylist) < num:
+                copylist.append(x)
 
         return copylist
 

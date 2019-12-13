@@ -9,7 +9,7 @@ all = Materia.allmat(filename)
 
 #Criando Interface Grafica
 tentativa = Tk()
-tentativa.geometry("900x900")
+tentativa.geometry("1300x910")
 tentativa.title("Auxilio em matricula")
 var = dict()
 
